@@ -10,7 +10,7 @@ chown admin: /home/admin/manager
 chown admin: /home/admin/node
 chown admin: /home/admin/zkData
 #host=`hostname -i`
-host="211.159.215.40"
+host="211.159.215.166"
 port=8080
 
 # default config
@@ -205,7 +205,7 @@ start_mysql
 start_zookeeper
 start_manager
 start_node
-echo "you can visit manager link : http://$host , just have fun !"
+echo "you can visit manager link : http://$host:8080 , just have fun !"
 
 echo "==> START SUCCESSFUL ..."
 

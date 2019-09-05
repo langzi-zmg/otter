@@ -1,13 +1,13 @@
-###Docker_QuickStart
+## Docker_QuickStart      
 
 agapple edited this page on 15 Nov 2018 · 1 revision
 参考资料
 QuickStart : https://github.com/alibaba/otter/wiki/QuickStart
 
-###Dockerfile
+###  Dockerfile   
 Dockerfile文件：https://github.com/alibaba/otter/blob/master/docker/Dockerfile
 
-注意点：
+####  注意点：
 
 基于centos6.7最小镜像进行构建，安装一些必须的工具，比如tar/dstat/nc/man等，大概400MB
 默认安装jdk 1.8、zookeeper、mysql，build.sh脚本里会自动下载jdk然后copy到docker里，大概500MB
@@ -19,6 +19,7 @@ Dockerfile文件：https://github.com/alibaba/otter/blob/master/docker/Dockerfil
 整个镜像设计为单机的QuickStart启动模式，全部都是单点启动，并没有高可用的能力。如果需要高可用的组件，可以借助k8s做docker节点的高可用调度，或者参考Dockerfile按照业务需求改造为多docker协同部署的模式
 内置的启动脚本：
 
+```
 echo "==> START ..."
 start_mysql   # 启动mysql
 start_zookeeper  # 启动zk
@@ -48,6 +49,8 @@ docker pull canal/otter-server
 启动otter
 curl -fsSL https://raw.githubusercontent.com/alibaba/otter/master/docker/run.sh | bash 
 image.png | left | 747x224
+```
+
 
 注意点：
 

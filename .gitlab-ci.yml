@@ -1,0 +1,32 @@
+image: ccr.ccs.tencentyun.com/dhub.wscn.com/build-base:latest
+stages:
+- build
+- release
+
+variables:
+  DOCKER_DRIVER: overlay
+  SERVICE_NAME: otter
+  NAMESPACE: operation
+  IMAGE_NAME: ccr.ccs.tencentyun.com/dhub.wscn.com/otter
+  CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_BUILD_REF_NAME
+  CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
+
+release:prod:
+  stage: release
+  script:
+    - REVISION=`git rev-parse --short=8 HEAD || echo unknown`
+    - docker login --username="$DOCKER_REGISTRY_USERNAME" ccr.ccs.tencentyun.com -p "$CI_DOCKER_REGISTRY_TOKEN"
+    - docker build --tag="$IMAGE_NAME:prod" .
+    - docker push "$IMAGE_NAME:prod"
+  only:
+    - master
+
+release:sit:
+  stage: release
+  script:
+    - REVISION=`git rev-parse --short=8 HEAD || echo unknown`
+    - docker login --username="$DOCKER_REGISTRY_USERNAME" ccr.ccs.tencentyun.com -p "$CI_DOCKER_REGISTRY_TOKEN"
+    - docker build --tag="$IMAGE_NAME:sit" .
+    - docker push "$IMAGE_NAME:sit"
+  only:
+    - sit
